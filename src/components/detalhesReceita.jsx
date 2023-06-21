@@ -6,20 +6,27 @@ import { useNavigation } from '@react-navigation/native';
 import ModalMessage from './modal';
 import { useEffect } from 'react';
 
-//ingredientes e quantidade, fazer funcao para adicionar essas propriedades em utils
-//documentar funcoes    
 
 const DetalhesReceita = ({route}) => {
 
+    //Estado para mostrar modal que edita dados
     const [showModal, setShowModal] = useState(false)
+    //Estado para verificar se o item ja esta adicionado ao banco de dados.
+    //Caso esteja adicionado, é mostrado o botao 'Remover receita'
     const [isAdicionado, setIsAdicionado] = useState(false);
+    //Estado para armazenar o id da receita gerado pelo SQLite.
+    //Dessa forma, o usuario consegue repetir receitas de mesmo id da API.
+    //Poder adicionar varias vezes a mesma receita no banco de dados, permite o usuario 
+    //a editar e salvar variacoes da receita original e excluir apenas uma variacao.
+    //Caso fosse selecionado o id da API, seria removido todas as variacoes de receitas.
     const [receitaId, setReceitaId] = useState()
 
-    const {admin, receitasAdicionadas, setListaReceitas, listaReceitas} = useContext(GlobalStateContext)
+    const {admin, receitasAdicionadas, setListaReceitas} = useContext(GlobalStateContext)
 
     const navigation = useNavigation();
 
     const {receita} = route.params
+
 
     useEffect(() => {
         if(admin) {
@@ -34,6 +41,7 @@ const DetalhesReceita = ({route}) => {
 
     }, [receita.id])
 
+    //Funcao para carregar dados vindos do banco de dados e salvar no estado global.
     const carregarDados = async () => {
         try {
             if(admin === 0) {
@@ -51,7 +59,7 @@ const DetalhesReceita = ({route}) => {
 
     }, [showModal])
 
-
+    //Funcao para adicionar receita ao banco de dados
     const adicionarReceita = (receita) => {
         const objAdicionado = {
             idMeal: receita.idMeal,
@@ -66,11 +74,13 @@ const DetalhesReceita = ({route}) => {
         create(objAdicionado)
     }
 
+    //Funcao para remover uma receita do banco de dados
     const removerReceita = (id) => {
         remove(id)
         navigation.goBack();
     }
 
+    //Funcao que faz mostrar o modal onde permite o usuario editar dados
     const editarReceita = () => {
         setShowModal(true)
     }

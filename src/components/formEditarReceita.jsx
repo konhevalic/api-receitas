@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
-import { useState, useContext } from 'react';
-import { StyleSheet, View, Button, TextInput, Modal } from 'react-native'
+import { useState } from 'react';
+import { StyleSheet, View, Button, TextInput } from 'react-native'
 import globalStyles from '../../globalStyles';
 import { read, update } from '../services/controllers/ListaReceitasController';
 
-const FormEditarReceita = ({receita, setShowModal, setAtualizarLista}) => {
+const FormEditarReceita = ({receita, setShowModal}) => {
 
-
-
+    //Estado para salvar objeto que sera enviado para o banco de dados
     const [novaReceita, setNovaReceita] = useState({
         strMeal: receita.strMeal,
         strMealThumb: receita.strMealThumb,
@@ -17,6 +15,7 @@ const FormEditarReceita = ({receita, setShowModal, setAtualizarLista}) => {
         strYoutube: receita.strYoutube
       });
 
+    //Funcao para editar dados salvos
     const editarCampo = (key, value) => {
         setNovaReceita(prevReceita => ({
             ...prevReceita,
@@ -25,13 +24,13 @@ const FormEditarReceita = ({receita, setShowModal, setAtualizarLista}) => {
         
     }
 
+    //Funcao que ira atualizar os dados informados no banco de dados.
     const salvarReceita = () => {
         update(parseInt(receita.id, 10), novaReceita)
         setShowModal(false)
     }
 
     return (
-
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <TextInput

@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
-const Login = ({navigation, route }) => {
+const Login = ({ navigation, route }) => {
+  // Estados para armazenar o e-mail e a senha
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Função de login passada como parâmetro da rota
   const { handleLogin } = route.params;
-  
 
+  // Função chamada ao pressionar o botão de login. É utilizado a funcao handleLogin, passando parametros digitados pelo usuario.
   const onLogin = () => {
-    // Aqui você pode fazer a validação do e-mail e senha, e então chamar a função onLogin
-    // para notificar o componente pai que o login foi realizado com sucesso.
-    // Você pode passar os valores de e-mail e senha como argumentos para a função onLogin.
     handleLogin(email, password);
-  }
+  };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="E-mail"
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setEmail(text)}
         value={email}
       />
       <TextInput
         style={styles.input}
         placeholder="Senha"
-        onChangeText={text => setPassword(text)}
+        onChangeText={(text) => setPassword(text)}
         value={password}
         secureTextEntry
       />
