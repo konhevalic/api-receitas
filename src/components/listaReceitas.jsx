@@ -3,6 +3,8 @@ import { View, StyleSheet, Image, Text, FlatList, Button } from 'react-native'
 
 const ListaReceitas = ({navigation, listaReceitas}) => {
 
+    //Componente que renderiza em si uma lista de dados vindos da api atraves da props 'listaReceitas'
+
     return (
         <View style={styles.app}>
             <FlatList 
