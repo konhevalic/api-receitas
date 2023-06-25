@@ -1,4 +1,4 @@
-# pokedex-rn
+# API-Receitas
 
 # Instalar as seguintes dependencias: 
 - npm install @react-navigation/bottom-tabs  
